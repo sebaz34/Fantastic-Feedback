@@ -9,8 +9,12 @@ namespace API_FantasticFeedback.Models
     {
         //Primary Key
         public int OptionID { get; set; }
+        
         //Entity Fields
         public string OptionText { get; set; }
+        public int OptionOrder { get; set; }
+        public int QuestionID { get; set; }
+
         //Foreign Relationship
         public Question Question { get; set; }
     }

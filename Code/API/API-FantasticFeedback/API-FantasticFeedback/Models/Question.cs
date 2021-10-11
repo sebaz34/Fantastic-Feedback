@@ -9,10 +9,14 @@ namespace API_FantasticFeedback.Models
     {
         //Primary Key
         public int QuestionID { get; set; }
+        
         //Entity Fields
         public string QuestionText { get; set; }
+        public int QuestionOrder { get; set; }
+        public int SurveyID { get; set; }
+
         //Foreign Relationship
-        public ICollection<Survey> Survey { get; set; }
+        public Survey Survey { get; set; }
         public ICollection<Option> Options { get; set; }
     }
 }

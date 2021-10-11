@@ -18,7 +18,7 @@ namespace API_FantasticFeedback.Models
         public DbSet<Question> Questions { get; set; }
         public DbSet<Option> Options { get; set; }
 
-#if DEBUG
+
         //Generate Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -34,11 +34,26 @@ namespace API_FantasticFeedback.Models
                 {
                     QuestionID = 1,
                     QuestionText = "Do you like green eggs and ham?",
-                    Survey
-
+                    SurveyID = 1
                 }
                 );
+            builder.Entity<Option>().HasData(
+                new Option
+                {
+                    OptionID = 1,
+                    OptionText = "Yes",
+                    OptionOrder = 1,
+                    QuestionID = 1
+                });
+            builder.Entity<Option>().HasData(
+                new Option
+                {
+                    OptionID = 2,
+                    OptionText = "No",
+                    OptionOrder = 2,
+                    QuestionID = 1
+                });
         }
-#endif
+
     }
 }

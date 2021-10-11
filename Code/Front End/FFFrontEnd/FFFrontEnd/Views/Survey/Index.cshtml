@@ -1,0 +1,71 @@
+﻿@model IEnumerable<FFFrontEnd.Models.Survey>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SurveyID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurveyTitle)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurveyTopic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurveyCreatorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurveyCreated)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurveyComments)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurveyImage)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveyID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveyTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveyTopic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveyCreatorName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveyCreated)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveyComments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveyImage)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

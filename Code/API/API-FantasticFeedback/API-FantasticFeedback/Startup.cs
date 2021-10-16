@@ -1,17 +1,10 @@
 using API_FantasticFeedback.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API_FantasticFeedback
 {
@@ -28,14 +21,14 @@ namespace API_FantasticFeedback
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<FFAPIContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FFAPIConnection")));
+            services.AddDbContext<FFAPIContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FFAPIConnection - Home")));
 
             //Register the swagger services
             services.AddSwaggerDocument(config =>
                 config.PostProcess = document =>
                 {
                     //Configuration of Swagger file
-                    document.Info.Version = "v0.1";
+                    document.Info.Version = "v1";
                     document.Info.Title = "Fantastic Feedback API";
                     document.Info.Description = "API used for Fantastic Feedbacks Survey Creation Tool.";
                     document.Info.Contact = new NSwag.OpenApiContact

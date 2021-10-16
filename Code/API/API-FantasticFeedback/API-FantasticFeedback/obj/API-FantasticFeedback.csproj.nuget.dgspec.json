@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\GitHub\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\API-FantasticFeedback.csproj": {}
+    "A:\\Github\\Repositorys\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\API-FantasticFeedback.csproj": {}
   },
   "projects": {
-    "D:\\GitHub\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\API-FantasticFeedback.csproj": {
+    "A:\\Github\\Repositorys\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\API-FantasticFeedback.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\GitHub\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\API-FantasticFeedback.csproj",
+        "projectUniqueName": "A:\\Github\\Repositorys\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\API-FantasticFeedback.csproj",
         "projectName": "API-FantasticFeedback",
-        "projectPath": "D:\\GitHub\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\API-FantasticFeedback.csproj",
-        "packagesPath": "C:\\Users\\sebas\\.nuget\\packages\\",
-        "outputPath": "D:\\GitHub\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\obj\\",
+        "projectPath": "A:\\Github\\Repositorys\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\API-FantasticFeedback.csproj",
+        "packagesPath": "C:\\Users\\Sebastian\\.nuget\\packages\\",
+        "outputPath": "A:\\Github\\Repositorys\\Fantastic-Feedback\\Code\\API\\API-FantasticFeedback\\API-FantasticFeedback\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sebas\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Sebastian\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -69,6 +69,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.18, 3.1.18]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -77,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.303\\RuntimeIdentifierGraph.json"
         }
       }
     }

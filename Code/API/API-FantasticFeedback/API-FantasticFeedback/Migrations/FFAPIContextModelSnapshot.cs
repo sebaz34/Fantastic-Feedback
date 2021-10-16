@@ -32,6 +32,9 @@ namespace API_FantasticFeedback.Migrations
                     b.Property<string>("OptionText")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("OptionVisible")
+                        .HasColumnType("bit");
+
                     b.Property<int>("QuestionID")
                         .HasColumnType("int");
 
@@ -47,6 +50,7 @@ namespace API_FantasticFeedback.Migrations
                             OptionID = 1,
                             OptionOrder = 1,
                             OptionText = "Yes",
+                            OptionVisible = true,
                             QuestionID = 1
                         },
                         new
@@ -54,7 +58,24 @@ namespace API_FantasticFeedback.Migrations
                             OptionID = 2,
                             OptionOrder = 2,
                             OptionText = "No",
+                            OptionVisible = true,
                             QuestionID = 1
+                        },
+                        new
+                        {
+                            OptionID = 3,
+                            OptionOrder = 0,
+                            OptionText = "Yay",
+                            OptionVisible = true,
+                            QuestionID = 2
+                        },
+                        new
+                        {
+                            OptionID = 4,
+                            OptionOrder = 0,
+                            OptionText = "Ba-nay-nay",
+                            OptionVisible = true,
+                            QuestionID = 2
                         });
                 });
 
@@ -71,6 +92,9 @@ namespace API_FantasticFeedback.Migrations
                     b.Property<string>("QuestionText")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("QuestionVisible")
+                        .HasColumnType("bit");
+
                     b.Property<int>("SurveyID")
                         .HasColumnType("int");
 
@@ -86,7 +110,16 @@ namespace API_FantasticFeedback.Migrations
                             QuestionID = 1,
                             QuestionOrder = 0,
                             QuestionText = "Do you like green eggs and ham?",
+                            QuestionVisible = true,
                             SurveyID = 1
+                        },
+                        new
+                        {
+                            QuestionID = 2,
+                            QuestionOrder = 0,
+                            QuestionText = "Yay or Ba-nay-nay?",
+                            QuestionVisible = true,
+                            SurveyID = 2
                         });
                 });
 
@@ -115,6 +148,9 @@ namespace API_FantasticFeedback.Migrations
                     b.Property<string>("SurveyTopic")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("SurveyVisible")
+                        .HasColumnType("bit");
+
                     b.HasKey("SurveyID");
 
                     b.ToTable("Surveys");
@@ -123,8 +159,20 @@ namespace API_FantasticFeedback.Migrations
                         new
                         {
                             SurveyID = 1,
-                            SurveyCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            SurveyTitle = "Opinions on Green Eggs and Ham - By Sam I Am"
+                            SurveyCreated = new DateTime(2021, 10, 16, 15, 0, 9, 433, DateTimeKind.Local).AddTicks(3965),
+                            SurveyCreatorName = "Sam I Am",
+                            SurveyTitle = "Opinions on Green Eggs and Ham",
+                            SurveyTopic = "Food",
+                            SurveyVisible = true
+                        },
+                        new
+                        {
+                            SurveyID = 2,
+                            SurveyCreated = new DateTime(2021, 10, 16, 15, 0, 9, 435, DateTimeKind.Local).AddTicks(999),
+                            SurveyCreatorName = "The Committee for Bananas who wear Pyjamas",
+                            SurveyTitle = "Bananas?",
+                            SurveyTopic = "Food",
+                            SurveyVisible = true
                         });
                 });
 

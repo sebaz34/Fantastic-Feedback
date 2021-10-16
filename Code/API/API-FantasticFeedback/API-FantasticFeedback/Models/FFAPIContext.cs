@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace API_FantasticFeedback.Models
 {
@@ -19,31 +16,36 @@ namespace API_FantasticFeedback.Models
         public DbSet<Option> Options { get; set; }
 
 
-        //Generate Data
+        //Generate Test Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //Survey 1 Data
             builder.Entity<Survey>().HasData(
                 new Survey
                 {
                     SurveyID = 1,
-                    SurveyTitle = "Opinions on Green Eggs and Ham - By Sam I Am"
-                }
-                );
+                    SurveyTitle = "Opinions on Green Eggs and Ham",
+                    SurveyTopic = "Food",
+                    SurveyCreatorName = "Sam I Am",
+                    SurveyCreated = DateTime.Now,
+                    SurveyVisible = true
+                });
             builder.Entity<Question>().HasData(
                 new Question
                 {
                     QuestionID = 1,
                     QuestionText = "Do you like green eggs and ham?",
-                    SurveyID = 1
-                }
-                );
+                    SurveyID = 1,
+                    QuestionVisible = true
+                });
             builder.Entity<Option>().HasData(
                 new Option
                 {
                     OptionID = 1,
                     OptionText = "Yes",
                     OptionOrder = 1,
-                    QuestionID = 1
+                    QuestionID = 1,
+                    OptionVisible = true
                 });
             builder.Entity<Option>().HasData(
                 new Option
@@ -51,7 +53,46 @@ namespace API_FantasticFeedback.Models
                     OptionID = 2,
                     OptionText = "No",
                     OptionOrder = 2,
-                    QuestionID = 1
+                    QuestionID = 1,
+                    OptionVisible = true
+                });
+
+            //Survey 2 Data
+            builder.Entity<Survey>().HasData(
+                new Survey
+                {
+                    SurveyID = 2,
+                    SurveyTitle = "Bananas?",
+                    SurveyTopic = "Food",
+                    SurveyCreatorName = "The Committee for Bananas who wear Pyjamas",
+                    SurveyCreated = DateTime.Now,
+                    SurveyVisible = true
+                });
+            builder.Entity<Question>().HasData(
+                new Question
+                {
+                    QuestionID = 2,
+                    QuestionText = "Yay or Ba-nay-nay?",
+                    SurveyID = 2,
+                    QuestionVisible = true
+                });
+            builder.Entity<Option>().HasData(
+                new Option
+                {
+                    OptionID = 3,
+                    OptionText = "Yay",
+                    OptionOrder = 0,
+                    QuestionID = 2,
+                    OptionVisible = true
+                });
+            builder.Entity<Option>().HasData(
+                new Option
+                {
+                    OptionID = 4,
+                    OptionText = "Ba-nay-nay",
+                    OptionOrder = 0,
+                    QuestionID = 2,
+                    OptionVisible = true
                 });
         }
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace API_FantasticFeedback.Models
 {
@@ -17,6 +15,7 @@ namespace API_FantasticFeedback.Models
         public DateTime SurveyCreated { get; set; }
         public string SurveyComments { get; set; }
         public string SurveyImage { get; set; }
+        public bool SurveyVisible { get; set; } = true;
 
         //Foreign Relationship
         public ICollection<Question> Questions { get; set; }

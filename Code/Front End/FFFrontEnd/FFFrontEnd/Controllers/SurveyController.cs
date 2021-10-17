@@ -1,39 +1,33 @@
-﻿using FFFrontEnd.Models;
-using Microsoft.AspNetCore.Http;
+﻿using API_FantasticFeedback.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace FFFrontEnd.Controllers
 {
     public class SurveyController : Controller
     {
-        IConfiguration _config;
+
         HttpClient _client;
 
-        public SurveyController(IConfiguration config)
+        public SurveyController(IHttpClientFactory httpClientFactory)
         {
-            _config = config;
-            _client = new HttpClient();
-            _client.BaseAddress = new Uri(_config["WebApiUrl"]);
+            _client = httpClientFactory.CreateClient("FFHttpClient");
         }
 
         // GET: SurveyController
         public ActionResult Index()
         {
-            HttpResponseMessage message = _client.GetAsync("Survey").Result;
-            var result = message.Content.ReadAsAsync<List<Survey>>().Result;
-            return View(result);
+            var survey = APIRequest<Survey>.GetAllRecord(_client, "Survey");
+
+            return View(survey);
         }
 
         // GET: SurveyController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id);
+
+            return View(survey);
         }
 
         // GET: SurveyController/Create
@@ -45,10 +39,14 @@ namespace FFFrontEnd.Controllers
         // POST: SurveyController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Survey inputSurvey)
         {
             try
             {
+                inputSurvey.SurveyID = 0;
+                inputSurvey.SurveyCreated = System.DateTime.Now;
+                APIRequest<Survey>.PostRecord(_client, "Survey", inputSurvey);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -60,16 +58,20 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id);
+
+            return View(survey);
         }
 
         // POST: SurveyController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Survey inputSurvey)
         {
             try
             {
+                APIRequest<Survey>.PutRecord(_client, "Survey", id, inputSurvey);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -81,16 +83,20 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id);
+
+            return View(survey);
         }
 
         // POST: SurveyController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(int id, Survey inputSurvey)
         {
             try
             {
+                APIRequest<Survey>.DeleteRecord(_client, "Survey", id);
+
                 return RedirectToAction(nameof(Index));
             }
             catch

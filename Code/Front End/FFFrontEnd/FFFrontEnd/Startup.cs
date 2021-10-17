@@ -24,6 +24,10 @@ namespace FFFrontEnd
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient("FFHttpClient", c =>
+            {
+                c.BaseAddress = new Uri(Configuration["WebAPIURL"].ToString());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

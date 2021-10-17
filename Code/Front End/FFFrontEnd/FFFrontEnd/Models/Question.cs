@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace FFFrontEnd.Models
+namespace API_FantasticFeedback.Models
 {
     public class Question
     {
@@ -13,6 +10,7 @@ namespace FFFrontEnd.Models
         //Entity Fields
         public string QuestionText { get; set; }
         public int QuestionOrder { get; set; }
+        public bool QuestionVisible { get; set; } = true;
         public int SurveyID { get; set; }
 
         //Foreign Relationship

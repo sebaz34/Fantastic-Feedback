@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace API_FantasticFeedback.Models
+namespace FFFrontEnd.Models
 {
     public class Question
     {

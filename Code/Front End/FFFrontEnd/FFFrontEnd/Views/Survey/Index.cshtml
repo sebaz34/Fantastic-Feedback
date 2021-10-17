@@ -1,4 +1,4 @@
-﻿@model IEnumerable<API_FantasticFeedback.Models.Survey>
+﻿@model IEnumerable<FFFrontEnd.Models.Survey>
 
 @{
     ViewData["Title"] = "Index";
@@ -67,9 +67,9 @@
                 @Html.DisplayFor(modelItem => item.SurveyVisible)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.SurveyID }) |
-                @Html.ActionLink("Details", "Details", new { id=item.SurveyID }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.SurveyID })
+                @Html.ActionLink("Edit", "Edit", new { id=item.SurveyID })  |
+                @Html.ActionLink("Details", "Details", new { id = item.SurveyID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SurveyID })
             </td>
         </tr>
 }

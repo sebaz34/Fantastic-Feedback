@@ -1,0 +1,59 @@
+﻿@model IEnumerable<FFFrontEnd.Models.Question>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionOrder)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionVisible)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SurveyID)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionText)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionOrder)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.QuestionVisible)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SurveyID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SurveyID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SurveyID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SurveyID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

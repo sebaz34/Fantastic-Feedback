@@ -1,4 +1,4 @@
-﻿@model API_FantasticFeedback.Models.Survey
+﻿@model FFFrontEnd.Models.Survey
 
 @{
     ViewData["Title"] = "Create";
@@ -46,6 +46,11 @@
                 <label asp-for="SurveyImage" class="control-label"></label>
                 <input asp-for="SurveyImage" class="form-control" />
                 <span asp-validation-for="SurveyImage" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SurveyVisible" /> @Html.DisplayNameFor(model => model.SurveyVisible)
+                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

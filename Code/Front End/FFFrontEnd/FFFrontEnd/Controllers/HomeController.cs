@@ -1,4 +1,5 @@
 ﻿using FFFrontEnd.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -47,17 +48,26 @@ namespace FFFrontEnd.Controllers
                 case System.Net.HttpStatusCode.OK:
                     //Retrieve token from body
                     string token = result.Content.ReadAsStringAsync().Result;
+
                     //Session management
                     //Use session state managment in example from week 10 - bsb and acc no
+                    var sesh = HttpContext.Session;
+                    sesh.SetString("Token", token);
 
-                    //placeholder return
-                    return View();
-                    break;
+                    //Return home
+                    return RedirectToAction("Index", "Home");
                 default:
                     ViewData["Error"] = "Something Went Wrong - Try Again";
                     _logger.LogError("Error logging in, default statment in switch", result.ReasonPhrase);
                     return View();
             }
+        }
+
+        public IActionResult Logout()
+        {
+            var sesh = HttpContext.Session;
+            sesh.SetString("Token", "");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Privacy()

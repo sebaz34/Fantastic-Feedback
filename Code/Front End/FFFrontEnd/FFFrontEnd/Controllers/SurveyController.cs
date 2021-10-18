@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace FFFrontEnd.Controllers
 {
@@ -18,6 +19,8 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController
         public ActionResult Index()
         {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
             var survey = APIRequest<Survey>.GetAllRecord(_client, "Survey");
 
             return View(survey);

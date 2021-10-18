@@ -826,3 +826,4 @@ D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\obj\Debug\netc
 D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Survey\Details.cshtml.g.cs
 D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Survey\Edit.cshtml.g.cs
 D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
+D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netcoreapp3.1\libman.json

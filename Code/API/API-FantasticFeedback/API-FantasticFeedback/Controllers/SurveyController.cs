@@ -1,4 +1,5 @@
 ﻿using API_FantasticFeedback.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace API_FantasticFeedback.Controllers
 
         //GET: api/<SurveyController>
         //Returns a list of all surveys
+        [Authorize]
         [HttpGet]
         public IEnumerable<Survey> GetAllSurveys()
         {

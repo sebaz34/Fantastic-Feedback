@@ -4,14 +4,16 @@ using API_FantasticFeedback.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API_FantasticFeedback.Migrations
 {
     [DbContext(typeof(FFAPIContext))]
-    partial class FFAPIContextModelSnapshot : ModelSnapshot
+    [Migration("20211017233920_Including User Log In Info")]
+    partial class IncludingUserLogInInfo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -14,11 +14,21 @@ namespace API_FantasticFeedback.Models
         public DbSet<Survey> Surveys { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<Option> Options { get; set; }
+        public DbSet<UserInfo> UserInfos { get; set; }
 
 
         //Generate Test Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //User Log in
+            builder.Entity<UserInfo>().HasData(
+                new UserInfo
+                {
+                    UserInfoID = 1,
+                    Username = "a",
+                    Password = "aa"
+                });
+
             //Survey 1 Data
             builder.Entity<Survey>().HasData(
                 new Survey

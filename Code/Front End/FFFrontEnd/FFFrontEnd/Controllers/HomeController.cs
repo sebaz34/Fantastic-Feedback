@@ -53,6 +53,7 @@ namespace FFFrontEnd.Controllers
                     //Use session state managment in example from week 10 - bsb and acc no
                     var sesh = HttpContext.Session;
                     sesh.SetString("Token", token);
+                    sesh.SetString("Username", userinfo.Username);
 
                     //Return home
                     return RedirectToAction("Index", "Home");

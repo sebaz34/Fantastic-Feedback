@@ -1,56 +1,57 @@
-﻿@model FFFrontEnd.Models.Survey
+﻿@using System.Text;
+
+@model FFFrontEnd.Models.Survey
 
 @{
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Create a new Survey!</h1>
 
-<h4>Survey</h4>
+<h4>Please enter the following details to set up your survey:</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SurveyID" class="control-label"></label>
-                <input asp-for="SurveyID" class="form-control" />
-                <span asp-validation-for="SurveyID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SurveyTitle" class="control-label"></label>
+                <label asp-for="SurveyTitle" class="control-label">Survey Title</label>
+                <p>This will be the overall name for your survey.</p>
                 <input asp-for="SurveyTitle" class="form-control" />
                 <span asp-validation-for="SurveyTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyTopic" class="control-label"></label>
-                <input asp-for="SurveyTopic" class="form-control" />
+                <label asp-for="SurveyTopic" class="control-label">Survey Topic</label>
+                <p>Used to catagorise and sort your surveys</p>
+                <input asp-for="SurveyTopic" class="form-control"/>
                 <span asp-validation-for="SurveyTopic" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyCreatorName" class="control-label"></label>
-                <input asp-for="SurveyCreatorName" class="form-control" />
+                <label asp-for="SurveyCreatorName" class="control-label">Survey Creator</label>
+                @{
+                    var sesh = Context.Session;
+                    string username = "";
+
+                    if (sesh.TryGetValue("Username", out byte[] value1))
+                    {
+                        username = Encoding.UTF8.GetString(value1);
+                    }
+                <input asp-for="SurveyCreatorName" class="form-control" readonly value="@username" />
+                }
+
                 <span asp-validation-for="SurveyCreatorName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyCreated" class="control-label"></label>
-                <input asp-for="SurveyCreated" class="form-control" />
-                <span asp-validation-for="SurveyCreated" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SurveyComments" class="control-label"></label>
+                <label asp-for="SurveyComments" class="control-label">Survey Comments</label>
+                <p>General comments about this survey.</p>
                 <input asp-for="SurveyComments" class="form-control" />
                 <span asp-validation-for="SurveyComments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyImage" class="control-label"></label>
+                <label asp-for="SurveyImage" class="control-label">Survey Image</label>
+                <p>Web address of an image to be used in displaying your survey.</p>
                 <input asp-for="SurveyImage" class="form-control" />
                 <span asp-validation-for="SurveyImage" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SurveyVisible" /> @Html.DisplayNameFor(model => model.SurveyVisible)
-                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

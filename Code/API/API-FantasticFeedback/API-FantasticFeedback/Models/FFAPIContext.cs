@@ -28,7 +28,7 @@ namespace API_FantasticFeedback.Models
                     Username = "a",
                     Password = "aa"
                 });
-
+            
             //Survey 1 Data
             builder.Entity<Survey>().HasData(
                 new Survey

@@ -41,10 +41,12 @@
                         //Requires using statement
                         var sesh = Context.Session;
                         string token = null;
+                        string username = null;
 
-                        if (sesh.TryGetValue("Token", out byte[] value))
+                        if (sesh.TryGetValue("Token", out byte[] value1) && sesh.TryGetValue("Username", out byte[]  value2))
                         {
-                            token = Encoding.UTF8.GetString(value);
+                            token = Encoding.UTF8.GetString(value1);
+                            username = Encoding.UTF8.GetString(value2);
                         }
                         if (String.IsNullOrEmpty(token))
                         {
@@ -56,6 +58,11 @@
                         else
                         {
                             //If logged in:
+                            //Username
+                            <div>
+                                <h3 class="" style="color: green" >Hi! @username</h3>
+                            </div>
+                            //Login/Logout button
                             <div>
                                 <a class="btn btn-primary" style="background-color:red" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
                             </div>

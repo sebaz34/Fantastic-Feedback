@@ -51,6 +51,8 @@ namespace FFFrontEnd.Controllers
                 inputSurvey.SurveyCreated = System.DateTime.Now;
                 APIRequest<Survey>.PostRecord(_client, "Survey", inputSurvey);
 
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
                 return RedirectToAction(nameof(Index));
             }
             catch

@@ -24,7 +24,7 @@ namespace API_FantasticFeedback
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddDbContext<FFAPIContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FFAPIConnection - Laptop")));
+            services.AddDbContext<FFAPIContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FFAPIConnection - Home")));
 
             //Register the swagger services
             services.AddSwaggerDocument(config =>

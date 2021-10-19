@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace FFFrontEnd.Controllers
@@ -22,15 +23,28 @@ namespace FFFrontEnd.Controllers
         // GET: OptionController
         public ActionResult Index()
         {
-            var option = APIRequest<Option>.GetAllRecord(_client, "Option");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
 
-            return View(option);
+            var sesh = HttpContext.Session;
+
+            var option = APIRequest<Option>.GetAllRecord(_client, "Option", sesh.GetString("Username"));
+
+            if (option != null)
+            {
+                return View(option);
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: OptionController/Details/5
         public ActionResult Details(int id)
         {
-            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id);
+            var sesh = HttpContext.Session;
+
+            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
 
             return View(option);
         }
@@ -62,7 +76,9 @@ namespace FFFrontEnd.Controllers
         // GET: OptionController/Edit/5
         public ActionResult Edit(int id)
         {
-            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id);
+            var sesh = HttpContext.Session;
+
+            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
 
             return View(option);
         }
@@ -87,7 +103,9 @@ namespace FFFrontEnd.Controllers
         // GET: OptionController/Delete/5
         public ActionResult Delete(int id)
         {
-            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id);
+            var sesh = HttpContext.Session;
+
+            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
 
             return View(option);
         }

@@ -21,12 +21,12 @@ namespace API_FantasticFeedback.Controllers
         //GET: api/<SurveyController>
         //Returns a list of all surveys
         [Authorize]
-        [HttpGet]
-        public IEnumerable<Survey> GetAllSurveys()
+        [HttpGet("{username}")]
+        public IEnumerable<Survey> GetAllSurveys(string username)
         {
             try
             {
-                return _context.Surveys.Where(c => c.SurveyVisible == true).ToList();
+                return _context.Surveys.Where(c => c.SurveyCreatorName == username).Where(c => c.SurveyVisible == true).ToList();
             }
             catch (Exception)
             {
@@ -36,15 +36,16 @@ namespace API_FantasticFeedback.Controllers
 
         //GET: api/<SurveyController>/id
         //Returns the specified survey if present
-        [HttpGet("{id}")]
-        public ActionResult<Survey> GetSingleSurvey(int id)
+        [Authorize]
+        [HttpGet("{username}/{id}")]
+        public ActionResult<Survey> GetSingleSurvey(string username, int id)
         {
             Survey returnSurvey;
             try
             {
                 try
                 {
-                    returnSurvey = _context.Surveys.Where(c => c.SurveyID == id).Where(c => c.SurveyVisible == true).First();
+                    returnSurvey = _context.Surveys.Where(c => c.SurveyCreatorName == username).Where(c => c.SurveyID == id).Where(c => c.SurveyVisible == true).First();
                 }
                 catch (Exception)
                 {
@@ -60,6 +61,7 @@ namespace API_FantasticFeedback.Controllers
 
         //POST: api/<SurveyController>
         //Create a new survey with details passed in
+        [Authorize]
         [HttpPost]
         public IActionResult PostSingleSurvey(Survey inputSurvey)
         {
@@ -83,6 +85,7 @@ namespace API_FantasticFeedback.Controllers
 
         //DELETE: api/<SurveyController>/id
         //Changes the surveys visibility status to hidden
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteSingleSurvey(int id)
         {
@@ -106,6 +109,7 @@ namespace API_FantasticFeedback.Controllers
 
         //DELETE: api/<SurveyController>/<"Undelete">/id
         //Changes the surveys visibility status to visible
+        [Authorize]
         [HttpDelete("Undelete/{id}")]
         public IActionResult UndeleteSingleSurvey(int id)
         {
@@ -129,6 +133,7 @@ namespace API_FantasticFeedback.Controllers
 
         //PUT:api/<SurveyController>/id
         //Place the provided survey at position provided
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult PutSingleSurvey(int id, Survey inputSurvey)
         {

@@ -1,4 +1,5 @@
 ﻿using API_FantasticFeedback.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,9 @@ namespace API_FantasticFeedback.Controllers
 
         //GET: api/<QuestionController>
         //Returns a list of all questions
-        [HttpGet]
-        public IEnumerable<Question> GetAllQuestions()
+        [Authorize]
+        [HttpGet("{username}")]
+        public IEnumerable<Question> GetAllQuestions(string username)
         {
             try
             {
@@ -34,8 +36,9 @@ namespace API_FantasticFeedback.Controllers
 
         //GET: api/<QuestionController>/id
         //Returns the specified question if present
-        [HttpGet("{id}")]
-        public ActionResult<Question> GetSingleQuestion(int id)
+        [Authorize]
+        [HttpGet("{username}/{id}")]
+        public ActionResult<Question> GetSingleQuestion(string username, int id)
         {
             Question returnQuestion;
 
@@ -59,6 +62,7 @@ namespace API_FantasticFeedback.Controllers
 
         //GET: api/<QuestionController>/<"QuestionsForSurvey">/id
         //Returns all questions with surveyID value of id
+        [Authorize]
         [HttpGet("QuestionsForSurvey/{id}")]
         public IEnumerable<Question> GetSurveyQuestions(int id)
         {
@@ -85,6 +89,7 @@ namespace API_FantasticFeedback.Controllers
 
         //POST: api/<QuestionController>
         //Create a new question with details passed in
+        [Authorize]
         [HttpPost]
         public IActionResult PostSingleQuestion(Question inputQuestion)
         {
@@ -107,6 +112,7 @@ namespace API_FantasticFeedback.Controllers
         
         //DELETE: api/<QuestionController>/id
         //Changes the questions visibility status to hidden
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteSingleQuestion(int id)
         {
@@ -130,6 +136,7 @@ namespace API_FantasticFeedback.Controllers
 
         //DELETE: api/<QuestionController>/<"Undelete">/id
         //Changes the questions visibility status to visible
+        [Authorize]
         [HttpDelete("Undelete/{id}")]
         public IActionResult UndeleteSingleQuestion(int id)
         {
@@ -153,6 +160,7 @@ namespace API_FantasticFeedback.Controllers
 
         //PUT: api/<QuestionController>/id
         //Place the provided question at the position provided
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult PutSingleQuestion(int id, Question inputQuestion)
         {

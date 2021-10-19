@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
+using System.Net.Http.Headers;
 
 namespace FFFrontEnd.Controllers
 {
@@ -18,15 +19,28 @@ namespace FFFrontEnd.Controllers
         // GET: QuestionController
         public ActionResult Index()
         {
-            var question = APIRequest<Question>.GetAllRecord(_client, "Question");
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
 
-            return View(question);
+            var sesh = HttpContext.Session;
+
+            var question = APIRequest<Question>.GetAllRecord(_client, "Question", sesh.GetString("Username"));
+
+            if (question != null)
+            {
+                return View(question);
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: QuestionController/Details/5
         public ActionResult Details(int id)
         {
-            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id);
+            var sesh = HttpContext.Session;
+
+            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
 
             return View(question);
         }
@@ -44,6 +58,8 @@ namespace FFFrontEnd.Controllers
         {
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
                 inputQuestion.QuestionID = 0;
                 APIRequest<Question>.PostRecord(_client, "Question", inputQuestion);
 
@@ -58,7 +74,9 @@ namespace FFFrontEnd.Controllers
         // GET: QuestionController/Edit/5
         public ActionResult Edit(int id)
         {
-            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id);
+            var sesh = HttpContext.Session;
+
+            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
 
             return View(question);
         }
@@ -83,7 +101,9 @@ namespace FFFrontEnd.Controllers
         // GET: QuestionController/Delete/5
         public ActionResult Delete(int id)
         {
-            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id);
+            var sesh = HttpContext.Session;
+
+            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
 
             return View(question);
         }

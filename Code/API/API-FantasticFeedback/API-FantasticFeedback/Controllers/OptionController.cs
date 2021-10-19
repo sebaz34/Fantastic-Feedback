@@ -1,4 +1,5 @@
 ﻿using API_FantasticFeedback.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace API_FantasticFeedback.Controllers
 
         //GET: api/<OptionController>
         //Returns a list of all options
+        [Authorize]
         [HttpGet]
         public IEnumerable<Option> GetAllOptions()
         {
@@ -34,6 +36,7 @@ namespace API_FantasticFeedback.Controllers
 
         //GET: api/<OptionController>/id
         //Returns the specified option if present
+        [Authorize]
         [HttpGet("{id}")]
         public ActionResult<Option> GetSingleOption(int id)
         {
@@ -59,6 +62,7 @@ namespace API_FantasticFeedback.Controllers
 
         //GET: api/<OptionController>/<"OptionsForQuestion">/id
         //Returns all options with QuestionID value of id
+        [Authorize]
         [HttpGet("OptionsForQuestion/{id}")]
         public IEnumerable<Option> GetQuestionOptions(int id)
         {
@@ -84,6 +88,7 @@ namespace API_FantasticFeedback.Controllers
 
         //POST: api/<OptionController>
         //Create a new Option with details passed in
+        [Authorize]
         [HttpPost]
         public IActionResult PostSingleOption(Option inputOption)
         {
@@ -106,6 +111,7 @@ namespace API_FantasticFeedback.Controllers
 
         //DELETE: api/<OptionController>/id
         //Changes the options visibility status to hidden
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteSingleOption(int id)
         {
@@ -129,6 +135,7 @@ namespace API_FantasticFeedback.Controllers
 
         //DELETE: api/<OptionController>/<"Undelete">/id
         //Changes the options visibility status to visible
+        [Authorize]
         [HttpDelete("Undelete/{id}")]
         public IActionResult UndeleteSingleOption(int id)
         {
@@ -152,6 +159,7 @@ namespace API_FantasticFeedback.Controllers
 
         //PUT: api/<QuestionController>/id
         //Place the provided question at the position provided
+        [Authorize]
         [HttpPut("{id}")]
         public ActionResult PutSingleOption(int id, Option inputOption)
         {

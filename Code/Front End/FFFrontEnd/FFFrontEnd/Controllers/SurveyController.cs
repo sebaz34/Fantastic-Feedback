@@ -21,15 +21,26 @@ namespace FFFrontEnd.Controllers
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
 
-            var survey = APIRequest<Survey>.GetAllRecord(_client, "Survey");
+            var sesh = HttpContext.Session;
 
-            return View(survey);
+            var survey = APIRequest<Survey>.GetAllRecord(_client, "Survey", sesh.GetString("Username"));
+
+            if (survey != null)
+            {
+                return View(survey);
+            }
+            else
+            {
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         // GET: SurveyController/Details/5
         public ActionResult Details(int id)
         {
-            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id);
+            var sesh = HttpContext.Session;
+
+            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
 
             return View(survey);
         }
@@ -49,9 +60,10 @@ namespace FFFrontEnd.Controllers
             {
                 inputSurvey.SurveyID = 0;
                 inputSurvey.SurveyCreated = System.DateTime.Now;
-                APIRequest<Survey>.PostRecord(_client, "Survey", inputSurvey);
 
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
+                APIRequest<Survey>.PostRecord(_client, "Survey", inputSurvey);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -64,7 +76,9 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController/Edit/5
         public ActionResult Edit(int id)
         {
-            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id);
+            var sesh = HttpContext.Session;
+
+            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
 
             return View(survey);
         }
@@ -89,7 +103,9 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController/Delete/5
         public ActionResult Delete(int id)
         {
-            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id);
+            var sesh = HttpContext.Session;
+
+            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
 
             return View(survey);
         }

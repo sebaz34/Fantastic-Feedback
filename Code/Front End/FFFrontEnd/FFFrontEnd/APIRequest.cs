@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.Net.Http;
 
 namespace FFFrontEnd
@@ -15,9 +16,9 @@ namespace FFFrontEnd
         /// <returns>
         /// Single record of specified type from database.
         /// </returns>
-        public static T GetSingleRecord(HttpClient _client, string apiController, int id)
+        public static T GetSingleRecord(HttpClient _client, string apiController, int id, string username)
         {
-            HttpResponseMessage singleRecordResponse = _client.GetAsync($"{apiController}/{id}").Result;
+            HttpResponseMessage singleRecordResponse = _client.GetAsync($"{apiController}/{username}/{id}").Result;
 
             //Used to ensure that response is valid - useful for debugging
             singleRecordResponse.EnsureSuccessStatusCode();
@@ -33,14 +34,22 @@ namespace FFFrontEnd
         /// <returns>
         /// All records available of specified type from database
         /// </returns>
-        public static IEnumerable<T> GetAllRecord(HttpClient _client, string apiController)
+        public static IEnumerable<T> GetAllRecord(HttpClient _client, string apiController, string username)
         {
-            HttpResponseMessage allRecordResponse = _client.GetAsync($"{apiController}").Result;
+            HttpResponseMessage allRecordResponse = _client.GetAsync($"{apiController}/{username}").Result;
 
             //Used to ensure that response is valid - useful for debugging
-            allRecordResponse.EnsureSuccessStatusCode();
+            try
+            {
+                allRecordResponse.EnsureSuccessStatusCode();
+                return allRecordResponse.Content.ReadAsAsync<IEnumerable<T>>().Result;
+            }
+            catch (System.Exception)
+            {
+                return allRecordResponse.StatusCode as IEnumerable<T>;
+            }
 
-            return allRecordResponse.Content.ReadAsAsync<IEnumerable<T>>().Result;
+            
         }
 
         /// <summary>
@@ -100,5 +109,6 @@ namespace FFFrontEnd
 
             return deleteRecordResponse.Content.ReadAsAsync<T>().Result;
         }
+
     }
 }

@@ -6,6 +6,16 @@
 <h1 class="text-danger">Error.</h1>
 <h2 class="text-danger">An error occurred while processing your request.</h2>
 
+@{
+    if (ViewData["Error"] != null)
+    {
+        <h3 class="text-warning">@ViewData["Error"].ToString()</h3>
+        
+        //TODO Do I need to wipe this value from ViewData?
+        ViewData["Error"] = null;
+    }
+}
+
 @if (Model.ShowRequestId)
 {
     <p>

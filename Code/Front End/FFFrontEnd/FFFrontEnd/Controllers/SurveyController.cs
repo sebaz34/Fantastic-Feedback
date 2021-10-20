@@ -38,6 +38,8 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController/Details/5
         public ActionResult Details(int id)
         {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
             var sesh = HttpContext.Session;
 
             var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
@@ -76,6 +78,8 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController/Edit/5
         public ActionResult Edit(int id)
         {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
             var sesh = HttpContext.Session;
 
             var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
@@ -90,6 +94,8 @@ namespace FFFrontEnd.Controllers
         {
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
                 APIRequest<Survey>.PutRecord(_client, "Survey", id, inputSurvey);
 
                 return RedirectToAction(nameof(Index));
@@ -103,6 +109,8 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController/Delete/5
         public ActionResult Delete(int id)
         {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
             var sesh = HttpContext.Session;
 
             var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
@@ -117,6 +125,8 @@ namespace FFFrontEnd.Controllers
         {
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
                 APIRequest<Survey>.DeleteRecord(_client, "Survey", id);
 
                 return RedirectToAction(nameof(Index));

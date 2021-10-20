@@ -42,6 +42,8 @@ namespace FFFrontEnd.Controllers
         // GET: OptionController/Details/5
         public ActionResult Details(int id)
         {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
             var sesh = HttpContext.Session;
 
             var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
@@ -62,6 +64,8 @@ namespace FFFrontEnd.Controllers
         {
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
                 inputOption.OptionID = 0;
                 APIRequest<Option>.PostRecord(_client, "Option", inputOption);
 
@@ -76,6 +80,8 @@ namespace FFFrontEnd.Controllers
         // GET: OptionController/Edit/5
         public ActionResult Edit(int id)
         {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
             var sesh = HttpContext.Session;
 
             var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
@@ -90,6 +96,8 @@ namespace FFFrontEnd.Controllers
         {
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
                 APIRequest<Option>.PutRecord(_client, "Option", id, inputOption);
 
                 return RedirectToAction(nameof(Index));
@@ -103,6 +111,8 @@ namespace FFFrontEnd.Controllers
         // GET: OptionController/Delete/5
         public ActionResult Delete(int id)
         {
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
             var sesh = HttpContext.Session;
 
             var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
@@ -117,6 +127,8 @@ namespace FFFrontEnd.Controllers
         {
             try
             {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+
                 APIRequest<Option>.DeleteRecord(_client, "Option", id);
 
                 return RedirectToAction(nameof(Index));

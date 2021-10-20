@@ -63,8 +63,8 @@ namespace API_FantasticFeedback.Controllers
         //GET: api/<QuestionController>/<"QuestionsForSurvey">/id
         //Returns all questions with surveyID value of id
         [Authorize]
-        [HttpGet("QuestionsForSurvey/{id}")]
-        public IEnumerable<Question> GetSurveyQuestions(int id)
+        [HttpGet("QuestionsForSurvey/{id}/{username}")]
+        public IEnumerable<Question> GetSurveyQuestions(int id, string username)
         {
             IEnumerable<Question> returnIEnum;
 

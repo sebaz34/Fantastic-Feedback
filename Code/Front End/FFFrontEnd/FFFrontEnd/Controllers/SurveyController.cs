@@ -1,6 +1,7 @@
 ﻿using FFFrontEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Dynamic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 
@@ -42,9 +43,16 @@ namespace FFFrontEnd.Controllers
 
             var sesh = HttpContext.Session;
 
+            dynamic mymodel = new ExpandoObject();
+
             var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
 
-            return View(survey);
+            var questions = APIRequest<Question>.GetAllRecord(_client, $"Question/QuestionsForSurvey/{id}", sesh.GetString("Username"));
+
+            mymodel.Survey = survey;
+            mymodel.Questions = questions;
+
+            return View(mymodel);
         }
 
         // GET: SurveyController/Create

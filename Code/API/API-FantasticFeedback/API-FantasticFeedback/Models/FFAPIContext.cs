@@ -20,13 +20,14 @@ namespace API_FantasticFeedback.Models
         //Generate Test Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             //User Log in
             builder.Entity<UserInfo>().HasData(
                 new UserInfo
                 {
                     UserInfoID = 1,
-                    Username = "a",
-                    Password = "aa"
+                    Username = "Admin@FlawlessFeedback.com",
+                    Password = "FlawlessFeedback!21"
                 });
             
             //Survey 1 Data
@@ -36,7 +37,7 @@ namespace API_FantasticFeedback.Models
                     SurveyID = 1,
                     SurveyTitle = "Opinions on Green Eggs and Ham",
                     SurveyTopic = "Food",
-                    SurveyCreatorName = "Sam I Am",
+                    SurveyCreatorName = "Admin@FlawlessFeedback.com",
                     SurveyCreated = DateTime.Now,
                     SurveyVisible = true
                 });
@@ -74,7 +75,7 @@ namespace API_FantasticFeedback.Models
                     SurveyID = 2,
                     SurveyTitle = "Bananas?",
                     SurveyTopic = "Food",
-                    SurveyCreatorName = "The Committee for Bananas who wear Pyjamas",
+                    SurveyCreatorName = "Admin@FlawlessFeedback.com",
                     SurveyCreated = DateTime.Now,
                     SurveyVisible = true
                 });

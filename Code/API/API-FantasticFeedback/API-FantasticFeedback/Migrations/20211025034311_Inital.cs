@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace API_FantasticFeedback.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Inital : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,6 +24,20 @@ namespace API_FantasticFeedback.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Surveys", x => x.SurveyID);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserInfos",
+                columns: table => new
+                {
+                    UserInfoID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(nullable: true),
+                    Password = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserInfos", x => x.UserInfoID);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,12 +87,17 @@ namespace API_FantasticFeedback.Migrations
             migrationBuilder.InsertData(
                 table: "Surveys",
                 columns: new[] { "SurveyID", "SurveyComments", "SurveyCreated", "SurveyCreatorName", "SurveyImage", "SurveyTitle", "SurveyTopic", "SurveyVisible" },
-                values: new object[] { 1, null, new DateTime(2021, 10, 16, 15, 0, 9, 433, DateTimeKind.Local).AddTicks(3965), "Sam I Am", null, "Opinions on Green Eggs and Ham", "Food", true });
+                values: new object[] { 1, null, new DateTime(2021, 10, 25, 13, 43, 11, 420, DateTimeKind.Local).AddTicks(5294), "Admin@FlawlessFeedback.com", null, "Opinions on Green Eggs and Ham", "Food", true });
 
             migrationBuilder.InsertData(
                 table: "Surveys",
                 columns: new[] { "SurveyID", "SurveyComments", "SurveyCreated", "SurveyCreatorName", "SurveyImage", "SurveyTitle", "SurveyTopic", "SurveyVisible" },
-                values: new object[] { 2, null, new DateTime(2021, 10, 16, 15, 0, 9, 435, DateTimeKind.Local).AddTicks(999), "The Committee for Bananas who wear Pyjamas", null, "Bananas?", "Food", true });
+                values: new object[] { 2, null, new DateTime(2021, 10, 25, 13, 43, 11, 421, DateTimeKind.Local).AddTicks(6109), "Admin@FlawlessFeedback.com", null, "Bananas?", "Food", true });
+
+            migrationBuilder.InsertData(
+                table: "UserInfos",
+                columns: new[] { "UserInfoID", "Password", "Username" },
+                values: new object[] { 1, "FlawlessFeedback!21", "Admin@FlawlessFeedback.com" });
 
             migrationBuilder.InsertData(
                 table: "Questions",
@@ -116,6 +135,9 @@ namespace API_FantasticFeedback.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Options");
+
+            migrationBuilder.DropTable(
+                name: "UserInfos");
 
             migrationBuilder.DropTable(
                 name: "Questions");

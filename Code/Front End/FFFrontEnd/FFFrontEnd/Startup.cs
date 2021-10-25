@@ -32,7 +32,7 @@ namespace FFFrontEnd
             //Authentication Services
             services.AddDistributedMemoryCache();
             services.AddSession(opts => {
-                opts.IdleTimeout = TimeSpan.FromSeconds(30);
+                opts.IdleTimeout = TimeSpan.FromMinutes(30);
                 opts.Cookie.HttpOnly = true;
                 opts.Cookie.IsEssential = true;
             });
@@ -41,16 +41,18 @@ namespace FFFrontEnd
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+            app.UseDeveloperExceptionPage();
+
+            //if (env.IsDevelopment())
+            //{
+                
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            //    app.UseHsts();
+            //}
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

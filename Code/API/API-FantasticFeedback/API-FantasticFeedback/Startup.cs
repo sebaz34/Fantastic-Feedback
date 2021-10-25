@@ -23,8 +23,9 @@ namespace API_FantasticFeedback
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc().AddNewtonsoftJson(opts => opts.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
-            services.AddDbContext<FFAPIContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FFAPIConnection - Home")));
+            services.AddDbContext<FFAPIContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FFAPIConnection - Laptop")));
 
             //Register the swagger services
             services.AddSwaggerDocument(config =>

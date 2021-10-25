@@ -1,5 +1,6 @@
 ﻿using FFFrontEnd.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Dynamic;
 using System.Net.Http;
@@ -17,22 +18,41 @@ namespace FFFrontEnd.Controllers
             _client = httpClientFactory.CreateClient("FFHttpClient");
         }
 
+        public bool IsValid()
+        {
+            var sesh = HttpContext.Session;
+
+            if (sesh.GetString("Token") != null)
+            {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+                return true;
+            }
+            return false;
+        }
+
         // GET: SurveyController
         public ActionResult Index()
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
-            var sesh = HttpContext.Session;
-
-            var survey = APIRequest<Survey>.GetAllRecord(_client, "Survey", sesh.GetString("Username"));
-
-            if (survey != null)
+            if (IsValid())
             {
-                return View(survey);
+                var sesh = HttpContext.Session;
+
+                var survey = APIRequest<Survey>.GetAllRecord(_client, "Survey", sesh.GetString("Username"));
+
+                if (survey != null)
+                {
+                    return View(survey);
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
             else
             {
-                return RedirectToAction("Error", "Home");
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
 
@@ -43,16 +63,23 @@ namespace FFFrontEnd.Controllers
 
             var sesh = HttpContext.Session;
 
-            dynamic mymodel = new ExpandoObject();
+            Survey survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey/details", id, sesh.GetString("Username"));
 
-            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
+            //SAVING for later reference
+            //dynamic mymodel = new ExpandoObject();
 
-            var questions = APIRequest<Question>.GetAllRecord(_client, $"Question/QuestionsForSurvey/{id}", sesh.GetString("Username"));
+            //var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
 
-            mymodel.Survey = survey;
-            mymodel.Questions = questions;
+            //var questions = APIRequest<Question>.GetAllRecord(_client, $"Question/QuestionsForSurvey/{id}", sesh.GetString("Username"));
 
-            return View(mymodel);
+            //foreach (var question in questions)
+            //{
+            //    question.Options = APIRequest<Option>.GetAllRecord(_client, $"Option/OptionsForQuestion/{question.QuestionID}", sesh.GetString())
+            //}
+            //mymodel.Survey = survey;
+            //mymodel.Questions = questions;
+
+            return View(survey);
         }
 
         // GET: SurveyController/Create

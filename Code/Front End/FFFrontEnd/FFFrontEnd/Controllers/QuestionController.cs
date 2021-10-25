@@ -51,7 +51,7 @@ namespace FFFrontEnd.Controllers
             return View();
         }
 
-        // GET: QuestionController/Create
+        // GET: QuestionController/CreateAttachedQuestion
         public ActionResult CreateAttachedQuestion(Question question)
         {
             ViewData["question.SurveyID"] = question.SurveyID;
@@ -71,7 +71,7 @@ namespace FFFrontEnd.Controllers
                 inputQuestion.QuestionID = 0;
                 APIRequest<Question>.PostRecord(_client, "Question", inputQuestion);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Survey");
             }
             catch
             {

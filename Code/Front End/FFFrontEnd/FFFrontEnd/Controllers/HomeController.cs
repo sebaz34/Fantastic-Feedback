@@ -45,6 +45,7 @@ namespace FFFrontEnd.Controllers
                 case System.Net.HttpStatusCode.BadRequest:
                     ViewData["Error"] = "Invalid Login Details";
                     return View();
+
                 case System.Net.HttpStatusCode.OK:
                     //Retrieve token from body
                     string token = result.Content.ReadAsStringAsync().Result;
@@ -54,9 +55,18 @@ namespace FFFrontEnd.Controllers
                     var sesh = HttpContext.Session;
                     sesh.SetString("Token", token);
                     sesh.SetString("Username", userinfo.Username);
+                    if (TempData.Peek("RedirectUrl") != null)
+                    {
+                        string redirect = TempData["RedirectUrl"].ToString();
+                        return Redirect(redirect);
+                    }
+                    else
+                    {
+                        //Return home
+                        return RedirectToAction("Index", "Home");
+                    }
 
-                    //Return home
-                    return RedirectToAction("Index", "Home");
+
                 default:
                     ViewData["Error"] = "Something Went Wrong - Try Again";
                     _logger.LogError("Error logging in, default statment in switch", result.ReasonPhrase);

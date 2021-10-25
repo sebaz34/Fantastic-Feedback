@@ -1,5 +1,4 @@
-﻿@using FFFrontEnd.Models;
-@model dynamic
+﻿@model FFFrontEnd.Models.Survey;
 
 @{
     ViewData["Title"] = "Details";
@@ -11,47 +10,55 @@
     <h4>Survey</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Title:
         </dt>
-        <dd class = "col-sm-10">
-            @Model.Survey.SurveyTitle
+        <dd class="col-sm-10">
+            @Model.SurveyTitle
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Topic:
         </dt>
-        <dd class = "col-sm-10">
-            @Model.Survey.SurveyTopic
+        <dd class="col-sm-10">
+            @Model.SurveyTopic
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Created by:
         </dt>
-        <dd class = "col-sm-10">
-            @Model.Survey.SurveyCreatorName
+        <dd class="col-sm-10">
+            @Model.SurveyCreatorName
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Created:
         </dt>
-        <dd class = "col-sm-10">
-            @Model.Survey.SurveyCreated
+        <dd class="col-sm-10">
+            @Model.SurveyCreated
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Comments:
         </dt>
-        <dd class = "col-sm-10">
-            @Model.Survey.SurveyComments
+        <dd class="col-sm-10">
+            @Model.SurveyComments
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             Image Link:
         </dt>
-        <dd class = "col-sm-10">
-            @Model.Survey.SurveyImage
+        <dd class="col-sm-10">
+            @Model.SurveyImage
         </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit Survey Details", "Edit", new { id = Model.Survey.SurveyID }) |
+    @Html.ActionLink("Edit Survey Details", "Edit", new { id = Model.SurveyID }) |
     <a asp-action="Index">Back to List</a>
+    <hr />
+</div>
+<div>
+    @{
+        Question newQuestion = new Question();
+        newQuestion.SurveyID = (int)Model.SurveyID;
+    }
+    @Html.ActionLink("Add New Question", "CreateAttachedQuestion", "Question", newQuestion)
     <hr />
 </div>
 <div>
@@ -78,19 +85,24 @@
                         @question.QuestionOrder
                     </td>
                     <td>
+                        @{ 
+                            Option newOption = new Option();
+                            newOption.QuestionID = question.QuestionID;
+                        }
+                        @Html.ActionLink("New Response Option", "CreateAttachedOption", "Option", newOption) |
                         @Html.ActionLink("Edit", "Edit", "Question", new { id = question.QuestionID }) |
                         @Html.ActionLink("Delete", "Delete", "Question", new { id = question.QuestionID })
                     </td>
                 </tr>
+                <tr>
+                    <th>
+                        Response Options
+                    </th>
+                    @foreach (Option option in question.Options)
+                    {
+                        <td>@option.OptionText</td>
+                    }
+                </tr>
             }
-        </tbody>
     </table>
-    <div>
-        @{
-            Question newQuestion = new Question();
-            newQuestion.SurveyID = Model.Survey.SurveyID;
-        }
-        @Html.ActionLink("Add New Question", "CreateAttachedQuestion", "Question", newQuestion)
-        <hr />
-    </div>
 </div>

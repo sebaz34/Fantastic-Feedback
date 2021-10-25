@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_FantasticFeedback.Controllers
 {
@@ -32,6 +33,32 @@ namespace API_FantasticFeedback.Controllers
             {
                 return (IEnumerable<Survey>)StatusCode(500);
             }
+        }
+
+        //GET: api/<SurveyController>/details/id
+        //Returns survey details, then all questions in survey, then all options for each question
+        [Authorize]
+        [HttpGet("details/{username}/{id}")]
+        public ActionResult<Survey> GetSurveyDetails(string username, int id)
+        {
+            try
+            {
+                
+                Survey returnSurvey = _context.Surveys.Where(c => c.SurveyCreatorName == username).Where(c => c.SurveyID == id).Include(c => c.Questions).ThenInclude(c => c.Options).FirstOrDefault();
+
+                if (returnSurvey != null)
+                {
+                    return returnSurvey;
+                }
+
+                return StatusCode(404);
+                    
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
+
         }
 
         //GET: api/<SurveyController>/id

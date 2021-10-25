@@ -57,6 +57,14 @@ namespace FFFrontEnd.Controllers
             return View();
         }
 
+        // GET: OptionController/CreateAttachedOption
+        public ActionResult CreateAttachedOption(Option option)
+        {
+            ViewData["option.QuestionID"] = option.QuestionID;
+
+            return View("Create");
+        }
+
         // POST: OptionController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,7 +77,7 @@ namespace FFFrontEnd.Controllers
                 inputOption.OptionID = 0;
                 APIRequest<Option>.PostRecord(_client, "Option", inputOption);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Survey");
             }
             catch
             {

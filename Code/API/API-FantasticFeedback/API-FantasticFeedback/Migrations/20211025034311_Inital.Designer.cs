@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace API_FantasticFeedback.Migrations
 {
     [DbContext(typeof(FFAPIContext))]
-    [Migration("20211017233920_Including User Log In Info")]
-    partial class IncludingUserLogInInfo
+    [Migration("20211025034311_Inital")]
+    partial class Inital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -161,8 +161,8 @@ namespace API_FantasticFeedback.Migrations
                         new
                         {
                             SurveyID = 1,
-                            SurveyCreated = new DateTime(2021, 10, 18, 9, 39, 19, 798, DateTimeKind.Local).AddTicks(3733),
-                            SurveyCreatorName = "Sam I Am",
+                            SurveyCreated = new DateTime(2021, 10, 25, 13, 43, 11, 420, DateTimeKind.Local).AddTicks(5294),
+                            SurveyCreatorName = "Admin@FlawlessFeedback.com",
                             SurveyTitle = "Opinions on Green Eggs and Ham",
                             SurveyTopic = "Food",
                             SurveyVisible = true
@@ -170,8 +170,8 @@ namespace API_FantasticFeedback.Migrations
                         new
                         {
                             SurveyID = 2,
-                            SurveyCreated = new DateTime(2021, 10, 18, 9, 39, 19, 799, DateTimeKind.Local).AddTicks(7185),
-                            SurveyCreatorName = "The Committee for Bananas who wear Pyjamas",
+                            SurveyCreated = new DateTime(2021, 10, 25, 13, 43, 11, 421, DateTimeKind.Local).AddTicks(6109),
+                            SurveyCreatorName = "Admin@FlawlessFeedback.com",
                             SurveyTitle = "Bananas?",
                             SurveyTopic = "Food",
                             SurveyVisible = true
@@ -199,8 +199,8 @@ namespace API_FantasticFeedback.Migrations
                         new
                         {
                             UserInfoID = 1,
-                            Password = "aa",
-                            Username = "a"
+                            Password = "FlawlessFeedback!21",
+                            Username = "Admin@FlawlessFeedback.com"
                         });
                 });
 

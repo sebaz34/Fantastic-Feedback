@@ -1,5 +1,6 @@
 ﻿using FFFrontEnd.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -16,33 +17,62 @@ namespace FFFrontEnd.Controllers
             _client = httpClientFactory.CreateClient("FFHttpClient");
         }
 
+        public bool IsValid()
+        {
+            var sesh = HttpContext.Session;
+
+            if (!string.IsNullOrEmpty(sesh.GetString("Token")))
+            {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+                return true;
+            }
+            return false;
+        }
+
         // GET: QuestionController
         public ActionResult Index()
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
-            var sesh = HttpContext.Session;
-
-            var question = APIRequest<Question>.GetAllRecord(_client, "Question", sesh.GetString("Username"));
-
-            if (question != null)
+            if (IsValid())
             {
-                return View(question);
+                var sesh = HttpContext.Session;
+
+                var question = APIRequest<Question>.GetAllRecord(_client, "Question", sesh.GetString("Username"));
+
+                if (question != null)
+                {
+                    return View(question);
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
             else
             {
-                return RedirectToAction("Error", "Home");
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
+
         }
 
         // GET: QuestionController/Details/5
         public ActionResult Details(int id)
         {
-            var sesh = HttpContext.Session;
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
+                var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
 
-            return View(question);
+                return View(question);
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // GET: QuestionController/Create
@@ -64,31 +94,38 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Question inputQuestion)
         {
-            try
+            if (IsValid())
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
                 inputQuestion.QuestionID = 0;
                 APIRequest<Question>.PostRecord(_client, "Question", inputQuestion);
 
                 return RedirectToAction("Index", "Survey");
             }
-            catch
+            else
             {
-                return View();
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
 
         // GET: QuestionController/Edit/5
         public ActionResult Edit(int id)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var sesh = HttpContext.Session;
+                var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
 
-            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
+                return View(question);
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
-            return View(question);
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // POST: QuestionController/Edit/5
@@ -96,30 +133,37 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Question inputQuestion)
         {
-            try
+            if (IsValid())
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
                 APIRequest<Question>.PutRecord(_client, "Question", id, inputQuestion);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Survey");
             }
-            catch
+            else
             {
-                return View();
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
 
         // GET: QuestionController/Delete/5
         public ActionResult Delete(int id)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var sesh = HttpContext.Session;
+                var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
 
-            var question = APIRequest<Question>.GetSingleRecord(_client, "Question", id, sesh.GetString("Username"));
+                return View(question);
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
-            return View(question);
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // POST: QuestionController/Delete/5
@@ -127,17 +171,17 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Question inputQuestion)
         {
-            try
+            if (IsValid())
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
                 APIRequest<Question>.DeleteRecord(_client, "Question", id);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Survey");
             }
-            catch
+            else
             {
-                return View();
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
     }

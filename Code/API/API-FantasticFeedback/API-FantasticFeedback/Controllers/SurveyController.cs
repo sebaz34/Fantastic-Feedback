@@ -43,7 +43,7 @@ namespace API_FantasticFeedback.Controllers
         {
             try
             {
-                
+
                 Survey returnSurvey = _context.Surveys.Where(c => c.SurveyCreatorName == username).Where(c => c.SurveyID == id).Include(c => c.Questions).ThenInclude(c => c.Options).FirstOrDefault();
 
                 if (returnSurvey != null)

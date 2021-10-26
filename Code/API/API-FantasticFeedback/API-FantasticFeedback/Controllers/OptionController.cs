@@ -37,8 +37,8 @@ namespace API_FantasticFeedback.Controllers
         //GET: api/<OptionController>/id
         //Returns the specified option if present
         [Authorize]
-        [HttpGet("{id}")]
-        public ActionResult<Option> GetSingleOption(int id)
+        [HttpGet("{username}/{id}")]
+        public ActionResult<Option> GetSingleOption(string username, int id)
         {
             Option returnOption;
 

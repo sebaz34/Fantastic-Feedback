@@ -28,8 +28,14 @@ namespace API_FantasticFeedback.Models
                     UserInfoID = 1,
                     Username = "Admin@FlawlessFeedback.com",
                     Password = "FlawlessFeedback!21"
+                },
+                new UserInfo
+                {
+                    UserInfoID = 2,
+                    Username = "a",
+                    Password = "aa"
                 });
-            
+
             //Survey 1 Data
             builder.Entity<Survey>().HasData(
                 new Survey
@@ -57,8 +63,7 @@ namespace API_FantasticFeedback.Models
                     OptionOrder = 1,
                     QuestionID = 1,
                     OptionVisible = true
-                });
-            builder.Entity<Option>().HasData(
+                },
                 new Option
                 {
                     OptionID = 2,
@@ -95,14 +100,58 @@ namespace API_FantasticFeedback.Models
                     OptionOrder = 0,
                     QuestionID = 2,
                     OptionVisible = true
-                });
-            builder.Entity<Option>().HasData(
+                },
                 new Option
                 {
                     OptionID = 4,
                     OptionText = "Ba-nay-nay",
                     OptionOrder = 0,
                     QuestionID = 2,
+                    OptionVisible = true
+                });
+
+            //Survey 3 Data
+            builder.Entity<Survey>().HasData(
+                new Survey
+                {
+                    SurveyID = 3,
+                    SurveyTitle = "House Work",
+                    SurveyTopic = "Domestic Duties",
+                    SurveyCreatorName = "a",
+                    SurveyCreated = DateTime.Now,
+                    SurveyVisible = true
+                });
+            builder.Entity<Question>().HasData(
+                new Question
+                {
+                    QuestionID = 3,
+                    QuestionText = "How many hours a week do you contribute to house work?",
+                    SurveyID = 3,
+                    QuestionVisible = true
+                });
+            builder.Entity<Option>().HasData(
+                new Option
+                {
+                    OptionID = 5,
+                    OptionText = "Less than 1",
+                    OptionOrder = 0,
+                    QuestionID = 3,
+                    OptionVisible = true
+                },
+                new Option
+                {
+                    OptionID = 6,
+                    OptionText = "More than 1, less than 5",
+                    OptionOrder = 1,
+                    QuestionID = 3,
+                    OptionVisible = true
+                },
+                new Option
+                {
+                    OptionID = 7,
+                    OptionText = "More than 5",
+                    OptionOrder = 2,
+                    QuestionID = 3,
                     OptionVisible = true
                 });
         }

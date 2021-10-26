@@ -87,17 +87,21 @@ namespace API_FantasticFeedback.Migrations
             migrationBuilder.InsertData(
                 table: "Surveys",
                 columns: new[] { "SurveyID", "SurveyComments", "SurveyCreated", "SurveyCreatorName", "SurveyImage", "SurveyTitle", "SurveyTopic", "SurveyVisible" },
-                values: new object[] { 1, null, new DateTime(2021, 10, 25, 13, 43, 11, 420, DateTimeKind.Local).AddTicks(5294), "Admin@FlawlessFeedback.com", null, "Opinions on Green Eggs and Ham", "Food", true });
-
-            migrationBuilder.InsertData(
-                table: "Surveys",
-                columns: new[] { "SurveyID", "SurveyComments", "SurveyCreated", "SurveyCreatorName", "SurveyImage", "SurveyTitle", "SurveyTopic", "SurveyVisible" },
-                values: new object[] { 2, null, new DateTime(2021, 10, 25, 13, 43, 11, 421, DateTimeKind.Local).AddTicks(6109), "Admin@FlawlessFeedback.com", null, "Bananas?", "Food", true });
+                values: new object[,]
+                {
+                    { 1, null, new DateTime(2021, 10, 26, 9, 30, 9, 169, DateTimeKind.Local).AddTicks(4834), "Admin@FlawlessFeedback.com", null, "Opinions on Green Eggs and Ham", "Food", true },
+                    { 2, null, new DateTime(2021, 10, 26, 9, 30, 9, 170, DateTimeKind.Local).AddTicks(4628), "Admin@FlawlessFeedback.com", null, "Bananas?", "Food", true },
+                    { 3, null, new DateTime(2021, 10, 26, 9, 30, 9, 170, DateTimeKind.Local).AddTicks(4749), "a", null, "House Work", "Domestic Duties", true }
+                });
 
             migrationBuilder.InsertData(
                 table: "UserInfos",
                 columns: new[] { "UserInfoID", "Password", "Username" },
-                values: new object[] { 1, "FlawlessFeedback!21", "Admin@FlawlessFeedback.com" });
+                values: new object[,]
+                {
+                    { 1, "FlawlessFeedback!21", "Admin@FlawlessFeedback.com" },
+                    { 2, "aa", "a" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Questions",
@@ -110,6 +114,11 @@ namespace API_FantasticFeedback.Migrations
                 values: new object[] { 2, 0, "Yay or Ba-nay-nay?", true, 2 });
 
             migrationBuilder.InsertData(
+                table: "Questions",
+                columns: new[] { "QuestionID", "QuestionOrder", "QuestionText", "QuestionVisible", "SurveyID" },
+                values: new object[] { 3, 0, "How many hours a week do you contribute to house work?", true, 3 });
+
+            migrationBuilder.InsertData(
                 table: "Options",
                 columns: new[] { "OptionID", "OptionOrder", "OptionText", "OptionVisible", "QuestionID" },
                 values: new object[,]
@@ -117,7 +126,10 @@ namespace API_FantasticFeedback.Migrations
                     { 1, 1, "Yes", true, 1 },
                     { 2, 2, "No", true, 1 },
                     { 3, 0, "Yay", true, 2 },
-                    { 4, 0, "Ba-nay-nay", true, 2 }
+                    { 4, 0, "Ba-nay-nay", true, 2 },
+                    { 5, 0, "Less than 1", true, 3 },
+                    { 6, 1, "More than 1, less than 5", true, 3 },
+                    { 7, 2, "More than 5", true, 3 }
                 });
 
             migrationBuilder.CreateIndex(

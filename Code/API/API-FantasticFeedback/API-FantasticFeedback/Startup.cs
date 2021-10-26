@@ -25,7 +25,7 @@ namespace API_FantasticFeedback
         {
             services.AddMvc().AddNewtonsoftJson(opts => opts.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddControllers();
-            services.AddDbContext<FFAPIContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FFAPIConnection - Laptop")));
+            services.AddDbContext<FFAPIContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("FFAPIConnection - Home")));
 
             //Register the swagger services
             services.AddSwaggerDocument(config =>

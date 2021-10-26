@@ -10,7 +10,6 @@ namespace FFFrontEnd.Controllers
 {
     public class SurveyController : Controller
     {
-
         HttpClient _client;
 
         public SurveyController(IHttpClientFactory httpClientFactory)
@@ -22,7 +21,7 @@ namespace FFFrontEnd.Controllers
         {
             var sesh = HttpContext.Session;
 
-            if (sesh.GetString("Token") != null)
+            if (!string.IsNullOrEmpty(sesh.GetString("Token")))
             {
                 _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
                 return true;
@@ -59,11 +58,28 @@ namespace FFFrontEnd.Controllers
         // GET: SurveyController/Details/5
         public ActionResult Details(int id)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var sesh = HttpContext.Session;
+                Survey survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey/details", id, sesh.GetString("Username"));
 
-            Survey survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey/details", id, sesh.GetString("Username"));
+                if (survey != null)
+                {
+                    return View(survey);
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
+            }
+
 
             //SAVING for later reference
             //dynamic mymodel = new ExpandoObject();
@@ -79,7 +95,7 @@ namespace FFFrontEnd.Controllers
             //mymodel.Survey = survey;
             //mymodel.Questions = questions;
 
-            return View(survey);
+
         }
 
         // GET: SurveyController/Create
@@ -93,33 +109,42 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Survey inputSurvey)
         {
-            try
-            {
+
                 inputSurvey.SurveyID = 0;
                 inputSurvey.SurveyCreated = System.DateTime.Now;
 
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+                if (IsValid())
+                {
+                    APIRequest<Survey>.PostRecord(_client, "Survey", inputSurvey);
 
-                APIRequest<Survey>.PostRecord(_client, "Survey", inputSurvey);
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                    return RedirectToAction("Login", "Home");
+                }
         }
 
         // GET: SurveyController/Edit/5
         public ActionResult Edit(int id)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
 
-            var sesh = HttpContext.Session;
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
+                var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
 
-            return View(survey);
+                return View(survey);
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // POST: SurveyController/Edit/5
@@ -127,30 +152,37 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Survey inputSurvey)
         {
-            try
+            if (IsValid())
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
                 APIRequest<Survey>.PutRecord(_client, "Survey", id, inputSurvey);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
 
         // GET: SurveyController/Delete/5
         public ActionResult Delete(int id)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var sesh = HttpContext.Session;
+                var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
 
-            var survey = APIRequest<Survey>.GetSingleRecord(_client, "Survey", id, sesh.GetString("Username"));
+                return View(survey);
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
-            return View(survey);
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // POST: SurveyController/Delete/5
@@ -158,17 +190,17 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Survey inputSurvey)
         {
-            try
+            if (IsValid())
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
                 APIRequest<Survey>.DeleteRecord(_client, "Survey", id);
 
                 return RedirectToAction(nameof(Index));
             }
-            catch
+            else
             {
-                return View();
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
     }

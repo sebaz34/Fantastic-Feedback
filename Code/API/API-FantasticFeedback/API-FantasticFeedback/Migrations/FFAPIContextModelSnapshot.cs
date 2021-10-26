@@ -76,6 +76,30 @@ namespace API_FantasticFeedback.Migrations
                             OptionText = "Ba-nay-nay",
                             OptionVisible = true,
                             QuestionID = 2
+                        },
+                        new
+                        {
+                            OptionID = 5,
+                            OptionOrder = 0,
+                            OptionText = "Less than 1",
+                            OptionVisible = true,
+                            QuestionID = 3
+                        },
+                        new
+                        {
+                            OptionID = 6,
+                            OptionOrder = 1,
+                            OptionText = "More than 1, less than 5",
+                            OptionVisible = true,
+                            QuestionID = 3
+                        },
+                        new
+                        {
+                            OptionID = 7,
+                            OptionOrder = 2,
+                            OptionText = "More than 5",
+                            OptionVisible = true,
+                            QuestionID = 3
                         });
                 });
 
@@ -120,6 +144,14 @@ namespace API_FantasticFeedback.Migrations
                             QuestionText = "Yay or Ba-nay-nay?",
                             QuestionVisible = true,
                             SurveyID = 2
+                        },
+                        new
+                        {
+                            QuestionID = 3,
+                            QuestionOrder = 0,
+                            QuestionText = "How many hours a week do you contribute to house work?",
+                            QuestionVisible = true,
+                            SurveyID = 3
                         });
                 });
 
@@ -159,7 +191,7 @@ namespace API_FantasticFeedback.Migrations
                         new
                         {
                             SurveyID = 1,
-                            SurveyCreated = new DateTime(2021, 10, 25, 13, 43, 11, 420, DateTimeKind.Local).AddTicks(5294),
+                            SurveyCreated = new DateTime(2021, 10, 26, 9, 30, 9, 169, DateTimeKind.Local).AddTicks(4834),
                             SurveyCreatorName = "Admin@FlawlessFeedback.com",
                             SurveyTitle = "Opinions on Green Eggs and Ham",
                             SurveyTopic = "Food",
@@ -168,10 +200,19 @@ namespace API_FantasticFeedback.Migrations
                         new
                         {
                             SurveyID = 2,
-                            SurveyCreated = new DateTime(2021, 10, 25, 13, 43, 11, 421, DateTimeKind.Local).AddTicks(6109),
+                            SurveyCreated = new DateTime(2021, 10, 26, 9, 30, 9, 170, DateTimeKind.Local).AddTicks(4628),
                             SurveyCreatorName = "Admin@FlawlessFeedback.com",
                             SurveyTitle = "Bananas?",
                             SurveyTopic = "Food",
+                            SurveyVisible = true
+                        },
+                        new
+                        {
+                            SurveyID = 3,
+                            SurveyCreated = new DateTime(2021, 10, 26, 9, 30, 9, 170, DateTimeKind.Local).AddTicks(4749),
+                            SurveyCreatorName = "a",
+                            SurveyTitle = "House Work",
+                            SurveyTopic = "Domestic Duties",
                             SurveyVisible = true
                         });
                 });
@@ -199,6 +240,12 @@ namespace API_FantasticFeedback.Migrations
                             UserInfoID = 1,
                             Password = "FlawlessFeedback!21",
                             Username = "Admin@FlawlessFeedback.com"
+                        },
+                        new
+                        {
+                            UserInfoID = 2,
+                            Password = "aa",
+                            Username = "a"
                         });
                 });
 

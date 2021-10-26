@@ -12,39 +12,26 @@
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuestionID)
+            Question ID:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QuestionID)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuestionText)
+            Question Text:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QuestionText)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuestionOrder)
+            Question Priority:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.QuestionOrder)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.QuestionVisible)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.QuestionVisible)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SurveyID)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SurveyID)
         </dd>
     </dl>
     
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
     </form>
 </div>

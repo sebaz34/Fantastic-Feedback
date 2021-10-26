@@ -148,3 +148,6 @@ A:\Github\Repositorys\Fantastic-Feedback\Code\API\API-FantasticFeedback\API-Fant
 D:\GitHub\Fantastic-Feedback\Code\API\API-FantasticFeedback\API-FantasticFeedback\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
 D:\GitHub\Fantastic-Feedback\Code\API\API-FantasticFeedback\API-FantasticFeedback\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 D:\GitHub\Fantastic-Feedback\Code\API\API-FantasticFeedback\API-FantasticFeedback\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
+A:\Github\Repositorys\Fantastic-Feedback\Code\API\API-FantasticFeedback\API-FantasticFeedback\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+A:\Github\Repositorys\Fantastic-Feedback\Code\API\API-FantasticFeedback\API-FantasticFeedback\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+A:\Github\Repositorys\Fantastic-Feedback\Code\API\API-FantasticFeedback\API-FantasticFeedback\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

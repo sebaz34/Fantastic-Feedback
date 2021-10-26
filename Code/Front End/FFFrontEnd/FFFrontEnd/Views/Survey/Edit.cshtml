@@ -13,44 +13,39 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="SurveyID" class="control-label"></label>
-                <input asp-for="SurveyID" class="form-control" />
+                <label asp-for="SurveyID" class="control-label">ID</label>
+                <input asp-for="SurveyID" class="form-control" readonly />
                 <span asp-validation-for="SurveyID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyTitle" class="control-label"></label>
+                <label asp-for="SurveyTitle" class="control-label">Title:</label>
                 <input asp-for="SurveyTitle" class="form-control" />
                 <span asp-validation-for="SurveyTitle" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyTopic" class="control-label"></label>
+                <label asp-for="SurveyTopic" class="control-label">Topic:</label>
                 <input asp-for="SurveyTopic" class="form-control" />
                 <span asp-validation-for="SurveyTopic" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyCreatorName" class="control-label"></label>
-                <input asp-for="SurveyCreatorName" class="form-control" />
+                <label asp-for="SurveyCreatorName" class="control-label">Created By:</label>
+                <input asp-for="SurveyCreatorName" class="form-control" readonly />
                 <span asp-validation-for="SurveyCreatorName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyCreated" class="control-label"></label>
-                <input asp-for="SurveyCreated" class="form-control" />
+                <label asp-for="SurveyCreated" class="control-label">Date Created (UTC):</label>
+                <input asp-for="SurveyCreated" class="form-control" readonly/>
                 <span asp-validation-for="SurveyCreated" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyComments" class="control-label"></label>
+                <label asp-for="SurveyComments" class="control-label">Comments:</label>
                 <input asp-for="SurveyComments" class="form-control" />
                 <span asp-validation-for="SurveyComments" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SurveyImage" class="control-label"></label>
+                <label asp-for="SurveyImage" class="control-label">Image Link:</label>
                 <input asp-for="SurveyImage" class="form-control" />
                 <span asp-validation-for="SurveyImage" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SurveyVisible" /> @Html.DisplayNameFor(model => model.SurveyVisible)
-                </label>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
@@ -59,9 +54,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

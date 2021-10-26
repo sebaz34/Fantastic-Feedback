@@ -67,7 +67,7 @@ namespace ClassTrackerAPI.Controllers
                         _configuration["Jwt:Audience"],
                         claims,
                         // How long the JWT will be valid for
-                        expires: DateTime.UtcNow.AddMinutes(120),
+                        expires: DateTime.UtcNow.AddMinutes(30),
                         signingCredentials: signIn);
                     // Return the Token via JSON
                     return Ok(new JwtSecurityTokenHandler().WriteToken(token));

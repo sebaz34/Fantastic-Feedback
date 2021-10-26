@@ -1,5 +1,6 @@
 ﻿using FFFrontEnd.Models;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,35 +21,61 @@ namespace FFFrontEnd.Controllers
             _client = httpClientFactory.CreateClient("FFHttpClient");
         }
 
+        public bool IsValid()
+        {
+            var sesh = HttpContext.Session;
+
+            if (!string.IsNullOrEmpty(sesh.GetString("Token")))
+            {
+                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+                return true;
+            }
+            return false;
+        }
+
         // GET: OptionController
         public ActionResult Index()
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
-            var sesh = HttpContext.Session;
-
-            var option = APIRequest<Option>.GetAllRecord(_client, "Option", sesh.GetString("Username"));
-
-            if (option != null)
+            if (IsValid())
             {
-                return View(option);
+                var sesh = HttpContext.Session;
+
+                var option = APIRequest<Option>.GetAllRecord(_client, "Option", sesh.GetString("Username"));
+
+                if (option != null)
+                {
+                    return View(option);
+                }
+                else
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
             else
             {
-                return RedirectToAction("Error", "Home");
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
 
         // GET: OptionController/Details/5
         public ActionResult Details(int id)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var sesh = HttpContext.Session;
+                var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
 
-            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
+                return View(option);
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
-            return View(option);
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // GET: OptionController/Create
@@ -70,31 +97,39 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Option inputOption)
         {
-            try
+            if (IsValid())
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
                 inputOption.OptionID = 0;
                 APIRequest<Option>.PostRecord(_client, "Option", inputOption);
 
                 return RedirectToAction("Index", "Survey");
             }
-            catch
+            else
             {
-                return View();
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
 
         // GET: OptionController/Edit/5
         public ActionResult Edit(int id)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var sesh = HttpContext.Session;
+                var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
 
-            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
+                return View(option);
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
-            return View(option);
+                return RedirectToAction("Login", "Home");
+            }
+
         }
 
         // POST: OptionController/Edit/5
@@ -102,30 +137,39 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, Option inputOption)
         {
-            try
+            if (IsValid())
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+                inputOption.OptionVisible = true;
 
                 APIRequest<Option>.PutRecord(_client, "Option", id, inputOption);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Survey");
             }
-            catch
+            else
             {
-                return View();
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
 
         // GET: OptionController/Delete/5
         public ActionResult Delete(int id)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
+            if (IsValid())
+            {
+                var sesh = HttpContext.Session;
 
-            var sesh = HttpContext.Session;
+                var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
 
-            var option = APIRequest<Option>.GetSingleRecord(_client, "Option", id, sesh.GetString("Username"));
+                return View(option);
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
-            return View(option);
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // POST: OptionController/Delete/5
@@ -133,17 +177,17 @@ namespace FFFrontEnd.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, Option inputOption)
         {
-            try
+            if (IsValid())
             {
-                _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("Token"));
-
                 APIRequest<Option>.DeleteRecord(_client, "Option", id);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", "Survey");
             }
-            catch
+            else
             {
-                return View();
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+
+                return RedirectToAction("Login", "Home");
             }
         }
     }

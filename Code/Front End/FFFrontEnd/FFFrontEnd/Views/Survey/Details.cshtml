@@ -29,7 +29,7 @@
             @Model.SurveyCreatorName
         </dd>
         <dt class="col-sm-2">
-            Created:
+            Date Created (UTC):
         </dt>
         <dd class="col-sm-10">
             @Model.SurveyCreated
@@ -77,32 +77,39 @@
         <tbody>
             @foreach (Question question in Model.Questions)
             {
-                <tr>
-                    <td>
-                        @question.QuestionText
-                    </td>
-                    <td>
-                        @question.QuestionOrder
-                    </td>
-                    <td>
-                        @{ 
-                            Option newOption = new Option();
-                            newOption.QuestionID = question.QuestionID;
+                @if (question.QuestionVisible)
+                {
+                    <tr>
+                        <td>
+                            @question.QuestionText
+                        </td>
+                        <td>
+                            @question.QuestionOrder
+                        </td>
+                        <td>
+                            @{
+                                Option newOption = new Option();
+                                newOption.QuestionID = question.QuestionID;
+                            }
+                            @Html.ActionLink("New Response Option", "CreateAttachedOption", "Option", newOption) |
+                            @Html.ActionLink("Edit", "Edit", "Question", new { id = question.QuestionID }) |
+                            @Html.ActionLink("Delete", "Delete", "Question", new { id = question.QuestionID })
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            Response Options
+                        </th>
+                        @foreach (Option option in question.Options)
+                        {
+                            if (option.OptionVisible)
+                            {
+                                <td>@Html.ActionLink($"{option.OptionText}", "Details", "Option", new { id = option.OptionID }) </td>
+                            }
                         }
-                        @Html.ActionLink("New Response Option", "CreateAttachedOption", "Option", newOption) |
-                        @Html.ActionLink("Edit", "Edit", "Question", new { id = question.QuestionID }) |
-                        @Html.ActionLink("Delete", "Delete", "Question", new { id = question.QuestionID })
-                    </td>
-                </tr>
-                <tr>
-                    <th>
-                        Response Options
-                    </th>
-                    @foreach (Option option in question.Options)
-                    {
-                        <td>@option.OptionText</td>
-                    }
-                </tr>
+                    </tr>
+                }
+
             }
-    </table>
+</table>
 </div>

@@ -1,24 +1,27 @@
-﻿@model ChartJSCore.Models.Chart
-@{
+﻿@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to the future of survey creation!</h1>
-    <p>Insert Homepage here...</p>
-    <button class="btn btn-danger" onclick="toastr.warning('Button Clicked!')">Don't Press!</button>
+    @*<button class="btn btn-danger" onclick="toastr.warning('Button Clicked!')">Don't Press!</button>*@
 
-
+    <h2>Fantastic Feedback is a very popular survey company.</h2>
+    <h3>Here is a graph to prove it:</h3>
     <div>
         <canvas id="questionsOverTimeChart"></canvas>
     </div>
 </div>
 
-<script src="~/lib/Chart.js/chart.js"></script>
+@{
+    ChartJSCore.Models.Chart chart = (ChartJSCore.Models.Chart)ViewData["Graph"];
+}
 
-<script>
-    @{
-        var reportData = (ChartJSCore.Models.Chart)ViewData["Graph"];
-    }
-    var
-</script>
+@section Scripts{
+    <script src="~/lib/Chart.js/chart.js"></script>
+
+    <script>
+        @Html.Raw(chart.CreateChartCode("questionsOverTimeChart"))
+    </script>
+}
+

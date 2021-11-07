@@ -9,7 +9,12 @@
 <div>
     <h4>Survey</h4>
     <hr />
-    <img src="~/Uploads/@Html.DisplayFor(model => model.SurveyImage)" style="height:400px; width:auto" class="mx-auto d-block" />
+    @{
+        if (!String.IsNullOrEmpty(Model.SurveyImage))
+        {
+            <img src="~/Uploads/@Html.DisplayFor(model => model.SurveyImage)" style="height:400px; width:auto" class="mx-auto d-block" />
+        }
+    }
     <dl class="row">
         <dt class="col-sm-2">
             Title:

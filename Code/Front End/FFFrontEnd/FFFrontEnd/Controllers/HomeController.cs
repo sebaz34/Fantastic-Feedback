@@ -56,7 +56,7 @@ namespace FFFrontEnd.Controllers
 
             ViewData["Graph"] = questionsOverTimeChart;
 
-            return View(questionsOverTimeChart);
+            return View();
         }
 
         // GET: login

@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "QVIPuNQC+M9TErgPyYRnHfuFZh8lIxVa+aWHINKCBoK0F2vH0WOumcH+Qiob6TGPDQ7tPUTSYsQ2z1RK9qgJCg==",
+  "dgSpecHash": "nR/C5Ow+yTRaTESpAd25zns1ii/SDa2CXXWXoPv7rpAkT3SAwn8JbdG6+Kes5tsKVmLdkvyzA6GUigSbVZPVMA==",
   "success": true,
   "projectFilePath": "A:\\Github\\Repositorys\\Fantastic-Feedback\\Code\\Front End\\FFFrontEnd\\FFFrontEnd\\FFFrontEnd.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Sebastian\\.nuget\\packages\\chartjscore\\1.5.8\\chartjscore.1.5.8.nupkg.sha512",
     "C:\\Users\\Sebastian\\.nuget\\packages\\microsoft.aspnet.webapi.client\\5.2.7\\microsoft.aspnet.webapi.client.5.2.7.nupkg.sha512",
     "C:\\Users\\Sebastian\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Sebastian\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\3.1.19\\microsoft.aspnetcore.mvc.razor.extensions.3.1.19.nupkg.sha512",

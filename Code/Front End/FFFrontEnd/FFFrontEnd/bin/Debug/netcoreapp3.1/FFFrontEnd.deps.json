@@ -31,6 +31,7 @@
     ".NETCoreApp,Version=v3.1": {
       "FFFrontEnd/1.0.0": {
         "dependencies": {
+          "ChartJSCore": "1.5.8",
           "Microsoft.AspNet.WebApi.Client": "5.2.7",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "3.1.19",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "3.1.5",
@@ -321,6 +322,20 @@
         },
         "compile": {
           "FFFrontEnd.dll": {}
+        }
+      },
+      "ChartJSCore/1.5.8": {
+        "dependencies": {
+          "Newtonsoft.Json": "11.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/ChartJSCore.dll": {
+            "assemblyVersion": "1.5.5.0",
+            "fileVersion": "1.5.8.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/ChartJSCore.dll": {}
         }
       },
       "Microsoft.AspNet.WebApi.Client/5.2.7": {
@@ -3322,6 +3337,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "ChartJSCore/1.5.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-vrweAXhNPoJp0FZJQfNoKqyN298/O0V+knFwkMp1Jjl+NSv8I7mKXoAvAQFoJT+gs0ouH8Mh5eCZNYWjZZILwA==",
+      "path": "chartjscore/1.5.8",
+      "hashPath": "chartjscore.1.5.8.nupkg.sha512"
     },
     "Microsoft.AspNet.WebApi.Client/5.2.7": {
       "type": "package",

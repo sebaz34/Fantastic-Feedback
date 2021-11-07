@@ -49,15 +49,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="SurveyImage" class="control-label">Survey Image</label>
-                <p>Web address of an image to be used in displaying your survey.</p>
-                <input asp-for="SurveyImage" class="form-control" />
-                <span asp-validation-for="SurveyImage" class="text-danger"></span>
+                <input asp-for="SurveyImage" class="form-control" readonly/>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>
+</div>
+
+<div class="row">
+    <form asp-action="UploadFileLocally" asp-controller="Survey" class="dropzone" id="surveyimageupload">
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+        </div>
+    </form>
 </div>
 
 <div>
@@ -67,3 +73,21 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+<script src ="~/lib/dropzone/min/dropzone.min.js"></script>
+
+<script type="text/javascript">
+        Dropzone.options.surveyimageupload = {
+            paramName: "file",
+            maxFilesize: 20,
+            maxFiles: 1,
+            acceptedFiles: "image/*",
+            success: function (file, response) {
+                $("#SurveyImage").val(file.upload.filename);
+                file.previewElement.classList.add("dz-success");
+                console.log("Successfully uploaded :" + file.upload.filename);
+            }
+        };
+
+
+</script>

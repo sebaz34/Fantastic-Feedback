@@ -1,20 +1,27 @@
 ﻿using FFFrontEnd.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Dynamic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Threading.Tasks;
 
 namespace FFFrontEnd.Controllers
 {
     public class SurveyController : Controller
     {
+        //Global Variables
         HttpClient _client;
+        IWebHostEnvironment _env;
 
-        public SurveyController(IHttpClientFactory httpClientFactory)
+        public SurveyController(IHttpClientFactory httpClientFactory, IWebHostEnvironment env)
         {
             _client = httpClientFactory.CreateClient("FFHttpClient");
+            _env = env;
         }
 
         public bool IsValid()
@@ -110,21 +117,21 @@ namespace FFFrontEnd.Controllers
         public ActionResult Create(Survey inputSurvey)
         {
 
-                inputSurvey.SurveyID = 0;
-                inputSurvey.SurveyCreated = System.DateTime.Now;
+            inputSurvey.SurveyID = 0;
+            inputSurvey.SurveyCreated = System.DateTime.Now;
 
-                if (IsValid())
-                {
-                    APIRequest<Survey>.PostRecord(_client, "Survey", inputSurvey);
+            if (IsValid())
+            {
+                APIRequest<Survey>.PostRecord(_client, "Survey", inputSurvey);
 
-                    return RedirectToAction(nameof(Index));
-                }
-                else
-                {
-                    TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
-                    return RedirectToAction("Login", "Home");
-                }
+                return RedirectToAction("Login", "Home");
+            }
         }
 
         // GET: SurveyController/Edit/5
@@ -201,6 +208,31 @@ namespace FFFrontEnd.Controllers
                 TempData["RedirectUrl"] = UriHelper.GetEncodedUrl(HttpContext.Request);
 
                 return RedirectToAction("Login", "Home");
+            }
+        }
+
+        //File Upload
+        //Used with survey logo image
+        public async Task<IActionResult> UploadFileLocally(IFormFile file)
+        {
+            try
+            {
+                if (file.Length>0)
+                {
+                    string folderRoot = Path.Combine(_env.ContentRootPath, "wwwroot\\Uploads");
+                    string fileName = file.FileName;
+                    string filePath = Path.Combine(folderRoot, fileName);
+
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+                return Ok(new { success = true, message = "File Successfully Uploaded" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { success = false, message = $"File failed to upload - Error occured within UploadFileLocally() - {e}" });
             }
         }
     }

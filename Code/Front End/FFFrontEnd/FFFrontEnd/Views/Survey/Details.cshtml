@@ -9,6 +9,7 @@
 <div>
     <h4>Survey</h4>
     <hr />
+    <img src="~/Uploads/@Html.DisplayFor(model => model.SurveyImage)" style="height:400px; width:auto" class="mx-auto d-block" />
     <dl class="row">
         <dt class="col-sm-2">
             Title:
@@ -40,12 +41,7 @@
         <dd class="col-sm-10">
             @Model.SurveyComments
         </dd>
-        <dt class="col-sm-2">
-            Image Link:
-        </dt>
-        <dd class="col-sm-10">
-            @Model.SurveyImage
-        </dd>
+
     </dl>
 </div>
 <div>

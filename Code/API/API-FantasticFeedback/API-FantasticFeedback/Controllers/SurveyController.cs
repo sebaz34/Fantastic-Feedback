@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using API_FantasticFeedback.Models.ViewModels;
 
 namespace API_FantasticFeedback.Controllers
 {
@@ -188,6 +189,33 @@ namespace API_FantasticFeedback.Controllers
             {
                 return StatusCode(500);
             }
+        }
+
+        //GET: api/<SurveyController>/QuestionsOverTimeReport
+        //Provides a list of QuestionsOverTimeViewModel
+        [HttpGet("QuestionsOverTimeReport")]
+        public ActionResult QuestionsOverTimeReport()
+        {
+            List<QuestionsOverTimeViewModel> returnReport = new List<QuestionsOverTimeViewModel>();
+
+            foreach (var survey in _context.Surveys.ToList())
+            {
+                int count = 0;
+                DateTime surveyDateTime = survey.SurveyCreated;
+
+                foreach (var question in _context.Questions.Where(c => c.SurveyID == survey.SurveyID))
+                {
+                    count++;
+                }
+
+                returnReport.Add(new QuestionsOverTimeViewModel
+                {
+                    QuestionCount = count,
+                    SurveyCreation = surveyDateTime
+                });
+            }
+
+            return Ok(returnReport);
         }
     }
 }

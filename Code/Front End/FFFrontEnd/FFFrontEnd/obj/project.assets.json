@@ -2,6 +2,18 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "ChartJSCore/1.5.8": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "10.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/ChartJSCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/ChartJSCore.dll": {}
+        }
+      },
       "Microsoft.AspNet.WebApi.Client/5.2.7": {
         "type": "package",
         "dependencies": {
@@ -1881,6 +1893,20 @@
     }
   },
   "libraries": {
+    "ChartJSCore/1.5.8": {
+      "sha512": "vrweAXhNPoJp0FZJQfNoKqyN298/O0V+knFwkMp1Jjl+NSv8I7mKXoAvAQFoJT+gs0ouH8Mh5eCZNYWjZZILwA==",
+      "type": "package",
+      "path": "chartjscore/1.5.8",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "chartjscore.1.5.8.nupkg.sha512",
+        "chartjscore.nuspec",
+        "lib/net45/ChartJSCore.dll",
+        "lib/net46/ChartJSCore.dll",
+        "lib/netstandard2.0/ChartJSCore.dll"
+      ]
+    },
     "Microsoft.AspNet.WebApi.Client/5.2.7": {
       "sha512": "/76fAHknzvFqbznS6Uj2sOyE9rJB3PltY+f53TH8dX9RiGhk02EhuFCWljSj5nnqKaTsmma8DFR50OGyQ4yJ1g==",
       "type": "package",
@@ -6252,6 +6278,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "ChartJSCore >= 1.5.8",
       "Microsoft.AspNet.WebApi.Client >= 5.2.7",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 3.1.19",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 3.1.5"
@@ -6296,6 +6323,10 @@
       "netcoreapp3.1": {
         "targetAlias": "netcoreapp3.1",
         "dependencies": {
+          "ChartJSCore": {
+            "target": "Package",
+            "version": "[1.5.8, )"
+          },
           "Microsoft.AspNet.WebApi.Client": {
             "target": "Package",
             "version": "[5.2.7, )"

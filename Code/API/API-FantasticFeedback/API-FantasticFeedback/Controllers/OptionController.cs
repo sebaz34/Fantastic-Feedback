@@ -63,8 +63,8 @@ namespace API_FantasticFeedback.Controllers
         //GET: api/<OptionController>/<"OptionsForQuestion">/id
         //Returns all options with QuestionID value of id
         [Authorize]
-        [HttpGet("OptionsForQuestion/{id}")]
-        public IEnumerable<Option> GetQuestionOptions(int id)
+        [HttpGet("OptionsForQuestion/{id}/{username}")]
+        public IEnumerable<Option> GetQuestionOptions(int id, string username)
         {
             IEnumerable<Option> returnIEnum;
 

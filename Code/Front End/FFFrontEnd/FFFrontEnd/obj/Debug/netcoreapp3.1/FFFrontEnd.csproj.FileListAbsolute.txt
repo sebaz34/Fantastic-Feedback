@@ -830,3 +830,5 @@ D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netc
 A:\Github\Repositorys\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netcoreapp3.1\libman.json
 A:\Github\Repositorys\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Home\Login.cshtml.g.cs
 A:\Github\Repositorys\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netcoreapp3.1\ChartJSCore.dll
+D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netcoreapp3.1\ChartJSCore.dll
+D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netcoreapp3.1\CsvHelper.dll

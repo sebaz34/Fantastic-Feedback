@@ -832,3 +832,4 @@ A:\Github\Repositorys\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\ob
 A:\Github\Repositorys\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netcoreapp3.1\ChartJSCore.dll
 D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netcoreapp3.1\ChartJSCore.dll
 D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\bin\Debug\netcoreapp3.1\CsvHelper.dll
+D:\GitHub\Fantastic-Feedback\Code\Front End\FFFrontEnd\FFFrontEnd\obj\Debug\netcoreapp3.1\Razor\Views\Home\Help.cshtml.g.cs

@@ -243,68 +243,20 @@ namespace FFFrontEnd.Controllers
 
         //File Export
         //Used within survey details view
-
-        //public sealed class FooMap : ClassMap<Survey>
-        //{
-        //    public FooMap()
-        //    {
-        //        Map(m => m.SurveyID);
-        //        Map(m => m.SurveyTitle);
-        //        Map(m => m.SurveyTopic);
-        //        Map(m => m.SurveyCreatorName);
-        //        Map(m => m.SurveyCreated);
-        //        Map(m => m.SurveyComments);
-        //        Map(m => m.SurveyImage);
-        //        Map(m => m.SurveyImage);
-
-        //        Map(m => m.Questions);
-        //    }
-        //}
-
         public IActionResult ExportSurvey(Survey survey)
         {
 
-            dynamic exportList = new ExpandoObject();
+            List<Survey> exportList = new List<Survey>();
 
-            //List<Survey> exportList = new List<Survey>();
-
-            //exportList.Add(survey);
-
-            if (IsValid())
-            {
-                var sesh = HttpContext.Session;
-
-                List<Question> questions = new List<Question>();
-                questions.AddRange(APIRequest<Question>.GetAllRecord(_client, $"Question/QuestionsForSurvey/{survey.SurveyID}", sesh.GetString("Username")));
-                    
-
-                List<Option> options = new List<Option>();
-
-                foreach (var question in questions)
-                {
-                    options.AddRange(APIRequest<Option>.GetAllRecord(_client, $"Option/OptionsForQuestion/{question.QuestionID}", sesh.GetString("Username")));
-                }
-
-                exportList.Survey = survey;
-                exportList.Questions = questions;
-                exportList.Options = options;
-            }
+            exportList.Add(survey);
 
             var stream = new MemoryStream();
 
-            using (var writer = new StringWriter())
-            using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+            using (var writeFile = new StreamWriter(stream, leaveOpen: true))
             {
+                var csv = new CsvWriter(writeFile, CultureInfo.CurrentCulture, true);
                 csv.WriteRecords(exportList);
-
-                //writer.ToString().Dump();
             }
-
-            //using (var writeFile = new StreamWriter(stream, leaveOpen: true))
-            //{
-            //    var csv = new CsvWriter(writeFile, CultureInfo.CurrentCulture, true);
-            //    csv.WriteRecords(exportList);
-            //}
 
             stream.Position = 0;
 
